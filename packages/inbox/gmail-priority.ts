@@ -20,3 +20,15 @@ export function priorityGroups(sections: readonly InboxListSection[], marks: Pri
   }
   return groups;
 }
+
+/** Gmail badges count unseen threads, independently of questions still waiting on the person. */
+export function gmailUnreadCounts(sections: readonly InboxListSection[]) {
+  const projects = new Map<string, number>();
+  let total = 0;
+  for (const section of sections) for (const row of section.threads) {
+    if (!(row.unseen > 0) || (row.resolved_at && row.agent_after_archive !== true)) continue;
+    total++;
+    projects.set(row.project.id, (projects.get(row.project.id) ?? 0) + 1);
+  }
+  return { total, projects };
+}

@@ -74,6 +74,8 @@
 .gm-row:hover .gm-row-action,.gm-row:focus-within .gm-row-action { display:flex; }
 
 /* shortcut: Aside recolors authored light interfaces; remove when it honors color-scheme. */
+html[native-dark-active].theme-plannotator-gmail.light .pn-inbox { color-scheme:only light; }
+html[native-dark-active].theme-plannotator-gmail.light .pn-inbox, html[native-dark-active].theme-plannotator-gmail.light .pn-inbox * { background-color:var(--native-dark-bg-color)!important; color:var(--native-dark-font-color)!important; }
 :root.theme-plannotator-gmail.light .pn-inbox, :root.theme-plannotator-gmail.light .pn-inbox * { --native-dark-bg-color:transparent!important; --native-dark-font-color:var(--foreground)!important; --native-dark-border-color:var(--border)!important; --native-dark-fill-color:currentColor!important; --native-dark-box-shadow:none!important; }
 :root.theme-plannotator-gmail.light :is(.pn-inbox,.gm-header,.ib-shell,.ib-side,.ib-sb,.ib-sb-panel,.ib-sb-inner,.ib-sidescroll,.ib-side-foot) { --native-dark-bg-color:var(--background)!important; }
 :root.theme-plannotator-gmail.light :is(.ib-main,.gm-mail,.gm-mail-body,.gm-tools,.gm-section,.gm-row.ib-u,.ib-pane,.ib-phead,.ib-pbody,.ib-pfoot,.ib-view,.ib-sgroup,.ib-spage,.ib-spg,.ib-rbox) { --native-dark-bg-color:var(--card)!important; }

@@ -1,6 +1,6 @@
 import { GmailInbox } from './components/GmailInbox';
 import { GmailHeader } from './components/GmailHeader';
-import { type MailView } from './gmail-priority';
+import { gmailUnreadCounts, type MailView } from './gmail-priority';
 /**
  * The Plannotator Inbox window (`plannotator inbox`), built to its design of
  * record (kept privately, not in this repo). A mail client for
@@ -38,7 +38,7 @@ import {
   type WhatsNewModel,
 } from './api';
 import { discardPreparedInboxEvents, prepareInboxEvents } from './sharedEvents';
-import { addOwnThreads, adoptKeepingOpen, filterSections, heldNotice, markHeldRowArchived, refreshHeldRows, settleOwn, settleThread, showBroughtIn, waitingCount, type OpenThread } from './held';
+import { addOwnThreads, adoptKeepingOpen, filterSections, heldNotice, markHeldRowArchived, refreshHeldRows, settleOwn, settleThread, showBroughtIn, type OpenThread } from './held';
 import { hasMovingDelivery } from './rowDelivery';
 import {
   captureSettle,
@@ -490,6 +490,7 @@ function Inbox() {
     storage.setItem(SIDEBAR_OPEN_COOKIE, String(next));
   }, []);
   const [latest, setLatest] = useState<ListModel | null>(null);
+  const mailCounts = gmailUnreadCounts(latest?.sections ?? []);
   /**
    * Decision mode (experimental, approval "inbox-decision-mode"): the
    * projection while the feature is on, and the sitting (open, or tucked
@@ -2534,11 +2535,6 @@ function Inbox() {
     : null;
   /** The projects where Mark all as read has something to do. */
   const projectsReadable = useMemo(() => projectsWithReadable(latestSections), [latestSections]);
-  const projectCounts = useMemo(() => {
-    const counts = new Map<string, number>();
-    for (const project of projects) counts.set(project.id, waitingCount(latestSections, project.id));
-    return counts;
-  }, [projects, latestSections]);
 
   const context: ConnectContext | null = settings
     ? { command: settings.mcp_command, mcpUrl: settings.mcp_url, platform: platformOf() }
@@ -3634,9 +3630,9 @@ function Inbox() {
           <Sidebar
             page={route.page === 'tour' ? 'inbox' : fromCard ? 'board' : route.page}
             projectId={route.project}
-            inboxCount={waitingCount(latestSections)}
+            inboxCount={mailCounts.total}
             projects={projects}
-            projectCounts={projectCounts}
+            projectCounts={mailCounts.projects}
             projectsReadable={projectsReadable}
             onProjectAction={(projectId, action) => void projectAction(projectId, action)}
             // Not on a page opened over the tailnet: the update routes answer 403 local_only there.

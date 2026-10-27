@@ -1,0 +1,115 @@
+---
+title: AI Features
+description: "How to use Plannotator's AI chat during plan review, annotate, and code review — provider setup, model selection, and how it works."
+sidebar:
+  order: 25
+section: "Guides"
+---
+
+Plannotator embeds an AI chat sidebar directly in live review sessions. In plan review and annotate, you can ask a general question about the current plan or document, or select text, open the comment popover, and choose **Ask AI**. In code review, you can select lines in a diff and ask questions about the code.
+
+The AI sees the relevant review context automatically: the current plan and previous plan version for plan review, the active document and source metadata for annotate, or the full diff for code review. AI chat history stays separate from approve, deny, and send-annotations output unless you manually copy text into normal feedback. With [Ask this session](#ask-this-session), your questions and the answers are also part of the agent's conversation.
+
+Ask AI is an optional network feature. When you send the first question, Plannotator passes that question and the relevant review context to the agent session that opened Plannotator ([Ask this session](#ask-this-session)) or to the provider you selected, using the provider's locally installed and authenticated client. The Plannotator project does not proxy or collect those conversations; the selected provider's privacy and retention terms apply.
+
+## Ask this session
+
+When Plannotator is opened from an agent session that can answer questions itself, Ask AI is answered by that session instead of a separate AI. This works when Plannotator is opened from:
+
+- **Claude Code** with the [Plannotator mod](/docs/guides/claude-code/#the-plannotator-mod) (plan review, code review, annotate and annotate-last)
+- **Pi** (plan review, code review, annotate and annotate-last)
+- **OpenCode 2** (code review, annotate and annotate-last; in plan review the session gives a quick answer only, see below)
+
+In these sessions "Ask this session" is the only Ask AI option. There is no provider or model picker, and a provider you saved before is not used.
+
+- Your question shows in the agent's chat, and the answer streams back into Plannotator. The agent already knows the conversation, so you don't have to explain the context.
+- If the agent is busy with a turn, Plannotator asks what to do: **Ask when it finishes** or **Interrupt and ask now**.
+- Stopping a question stops only that question.
+- If the session closes or can't be reached, Plannotator says so. It does not switch to a different AI.
+- **OpenCode 2 plan review:** the agent is waiting for your plan decision, so it cannot run a full turn. You get a quick answer from the session's context ("Quick answer from this session"), and nothing is added to the conversation.
+- **Over your tailnet (`--tailscale`):** "Ask this session" works on this computer and, on your phone or another device, only for the Tailscale login that owns this computer. Nothing to set up: Plannotator asks Tailscale who owns the machine. Anyone else on your tailnet who opens the review gets the providers below instead, never the agent session.
+
+You pick a provider as before (see below) when:
+
+- the session is in remote mode, or you open a `--tailscale` session with a Tailscale login other than the one that owns the computer
+- Plannotator was opened from OpenCode 1
+- the Claude Code mod is off, or Claude Code runs without it (older versions, `claude -p`, Windows)
+- you run the `plannotator` CLI yourself, outside an agent session
+
+Review Agents, Code Tour and Guided Review are separate from Ask AI. They always run their own Claude or Codex models (or another installed agent CLI), also in a session where Ask AI uses the session.
+
+## Supported providers
+
+### Claude (via Claude Agent SDK)
+
+Requires the `claude` CLI installed and authenticated. Uses Claude Code's full system prompt, so the AI has the same capabilities as a Claude Code session — file reading, search, web access — plus the diff context.
+
+**Models:** whatever your installed `claude` offers (the same list its `/model` picker shows), plus a latest-resolving alias (`opus`, `sonnet`, `fable`, `haiku`) for each family it offers. Sonnet is the default. The effort control lists only the levels the selected model supports. The review agent, Code Tour, and Guided Review pickers show the same list.
+
+### Codex (via Codex SDK)
+
+Requires the `codex` CLI installed and authenticated. The AI operates in a sandboxed read-only mode with the diff context injected as a system prompt prefix.
+
+**Models:** whatever your installed `codex` offers (its `model/list`), with Codex's own default preselected. The reasoning control lists only the efforts the selected model supports. The review agent, Code Tour, and Guided Review pickers show the same list.
+
+### Pi (via RPC subprocess)
+
+Requires the `pi` CLI installed and configured. Plannotator spawns `pi --mode rpc` and communicates over JSONL/stdio. Models are discovered dynamically from your Pi installation — whatever models you've configured in Pi are available here.
+
+No API keys are managed by Plannotator — Pi uses its own local configuration.
+
+### OpenCode (via OpenCode SDK)
+
+Requires the `opencode` CLI installed and authenticated. Plannotator spawns `opencode serve` and communicates via HTTP + SSE. Models are discovered dynamically from your connected providers.
+
+OpenCode supports session forking, resuming, and runtime permission approvals — the richest capability set of all four providers.
+
+## Configuration
+
+Provider and model selection is available in **Settings > AI**. In a session where Ask AI is answered by the session itself, Settings > AI shows only that session. These persist via cookies across sessions.
+
+By default, Plannotator prefers the provider that matches the detected agent origin: Claude Code uses Claude, Codex uses Codex, OpenCode uses OpenCode, and Pi uses Pi when those providers are available. GitHub Copilot CLI and Gemini CLI do not have dedicated Ask AI providers yet, so they fall back to your saved provider or the server default.
+
+You can also override the provider and model per-session using the config bar at the bottom of the AI sidebar. Changing the provider or model starts a new session — old messages stay visible but the conversation resets.
+
+## How it works
+
+A session is created lazily on your first question. Until then, no resources are used.
+
+**Claude sessions** use `{ preset: "claude_code" }` with the review context appended. This means the AI has full Claude Code capabilities (tool use, file reading, search) plus the diff. If the code review was launched from a Claude Code session, the AI can fork from the parent session, preserving conversation history.
+
+**Codex sessions** inject the review context as a system prompt prefix. The AI has Codex's built-in capabilities plus the diff. Codex sessions are always standalone — fork support is not available.
+
+**Pi sessions** inject the review context as a system prompt prefix, similar to Codex. Pi uses its full default toolset (read, bash, edit, write). Pi sessions are always standalone — fork and resume are not available.
+
+**OpenCode sessions** pass the review context via the `system` field on the prompt API. OpenCode supports forking from a parent session and resuming previous sessions. Permission requests work the same as Claude — approval cards appear inline.
+
+**Context handling:** Large plans, documents, and diffs are truncated to stay within context limits. When you ask from a selection, the selected text or selected code is always sent alongside the question regardless of truncation. In folder annotation mode, Ask AI is scoped to the currently opened document only.
+
+## Permission requests
+
+Claude Ask AI allows Read, Glob, Grep, WebSearch, and scoped read-only Git commands by default. WebSearch queries are sent to Anthropic's search service and may return content from third-party websites without a separate Plannotator approval. Other tool requests appear as inline approval cards that you can approve or deny.
+
+Codex sessions run in a sandboxed read-only mode, so permission requests do not apply.
+
+OpenCode supports the same permission approval flow as Claude — tool calls that need approval appear as inline cards. You can approve or deny each request.
+
+Pi does not expose a permission approval gate over RPC, so tool execution is handled entirely by Pi's own runtime.
+
+## Reasoning effort
+
+Codex supports a reasoning effort setting with four levels: **Low**, **Medium**, **High**, and **Max**. This is available in the config bar at the bottom of the AI sidebar. Higher effort means slower but more thorough responses.
+
+This setting only applies to Codex — Claude, Pi, and OpenCode do not expose a reasoning effort control.
+
+## Available settings
+
+| Setting | Description | Provider |
+|---------|-------------|----------|
+| Provider | Claude, Codex, Pi, or OpenCode | All |
+| Model | Model selection per provider | All |
+| Reasoning effort | Low / Medium / High / Max | Codex only |
+| Default tools | Read, Glob, Grep, WebSearch | Claude only |
+| Sandbox mode | Read-only | Codex only |
+| Permission mode | Default | Claude only |
+| Max turns | 99 | Claude, Codex |

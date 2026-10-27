@@ -1,0 +1,93 @@
+.theme-plannotator-gmail .pn-inbox { --ib-type: 14; --ib-soft-panes: initial; --ib-soft-selection: ; --ib-soft-band: ; --ib-soft-nav: ; --ib-gutter: 0px; --ib-pane-r: 16px; --ib-pane-shadow: none; --ib-ground: var(--background); --ib-side-fg: var(--foreground); --ib-side-mfg: var(--muted-foreground); --ib-hair: var(--border); font-family: Arial,sans-serif; padding-top:64px; box-sizing:border-box; }
+.theme-plannotator-gmail .ib-shell { height:100%; }
+.theme-plannotator-gmail .ib-main { margin:0 16px 16px 0; height:calc(100% - 16px); border-radius:16px; overflow:hidden; background:var(--card); }
+.gm-header { position:fixed; z-index:10; top:0; left:0; right:0; height:64px; display:flex; align-items:center; gap:16px; padding:0 24px 0 16px; color:var(--foreground); background:var(--background); }
+.gm-identity { width:224px; flex:none; display:flex; align-items:center; gap:14px; font-size:22px; color:#5f6368; }
+.gm-identity>.ib-ic { color:#c5221f; }
+.gm-search { height:48px; width:min(720px,55vw); border:0; border-radius:24px; background:var(--secondary); color:#444746; display:flex; align-items:center; gap:18px; padding:0 18px; font-size:16px; text-align:left; }
+.gm-search kbd { margin-left:auto; font-size:12px; opacity:.6; }
+.gm-icon { width:36px; height:36px; border:0; background:transparent; border-radius:50%; color:inherit; display:inline-flex; align-items:center; justify-content:center; flex:none; }
+.gm-icon:hover { background:var(--muted); }
+.gm-spacer { flex:1; }
+.gm-avatar { display:grid; place-items:center; width:32px; height:32px; background:#7c4dff; color:white; border-radius:50%; font-size:18px; }
+.theme-plannotator-gmail .ib-side { padding:0 8px 12px 0; gap:0; }
+.theme-plannotator-gmail .ib-brand,.theme-plannotator-gmail .ib-sp-entry { display:none; }
+.theme-plannotator-gmail .ib-sp-entryrow { display:block; padding:8px 8px 16px; }
+.theme-plannotator-gmail .ib-compose-btn { width:144px; height:56px; padding:0 20px; border:0; border-radius:16px; display:flex; align-items:center; justify-content:flex-start; gap:16px; background:#c2e7ff; color:#001d35; font-size:14px; font-weight:500; }
+.theme-plannotator-gmail .ib-nav,.theme-plannotator-gmail .ib-proj { height:32px; border-radius:0 18px 18px 0; gap:18px; padding:0 20px 0 26px; font-size:14px; }
+.theme-plannotator-gmail .ib-nav.ib-on,.theme-plannotator-gmail .ib-proj.ib-on { background:var(--accent); color:#001d35; font-weight:600; }
+.theme-plannotator-gmail .ib-nav.ib-on::before { background:transparent; box-shadow:none; }
+.theme-plannotator-gmail .ib-nav .ib-n { font-size:12px; }
+.theme-plannotator-gmail .ib-side-label { margin:24px 24px 8px; text-transform:none; letter-spacing:0; font-size:14px; font-weight:600; }
+.theme-plannotator-gmail .ib-side-foot { border-top:0; padding:12px 8px; }
+.theme-plannotator-gmail .ib-cpill { font-size:11px; opacity:.8; border:0; }
+.gm-mail.ib-listcol { width:100%; flex:1; min-width:0; border-radius:16px; background:var(--card); }
+.gm-tools { height:48px; padding:0 20px 0 16px; display:flex; align-items:center; gap:16px; flex:none; font-size:13px; border-bottom:1px solid var(--border); }
+.gm-count { color:var(--muted-foreground); font-size:12px; }
+.gm-unread { padding:6px 12px; border:0; border-radius:16px; background:transparent; font-size:12px; }
+.gm-unread[aria-pressed='true'] { background:var(--accent); color:var(--primary); }
+.gm-mail-body.ib-lbody { padding:0; }
+.gm-section { width:100%; height:48px; padding:0 20px 0 14px; display:flex; align-items:center; gap:14px; background:var(--card); color:var(--foreground); font-size:14px; font-weight:600; text-align:left; border:0; }
+.gm-section-count { margin-left:auto; font-size:12px; font-weight:400; color:var(--muted-foreground); }
+.gm-group+.gm-group { margin-top:8px; }
+.gm-row { min-height:40px; display:flex; align-items:center; gap:10px; padding:0 18px 0 16px; background:var(--muted); border-bottom:1px solid color-mix(in srgb,var(--border) 60%,transparent); }
+.gm-row.ib-u { background:var(--card); }
+.gm-row:hover { box-shadow:inset 1px 0 #dadce0,inset -1px 0 #dadce0,0 1px 2px #3c40434d; position:relative; z-index:1; }
+.gm-row.gm-checked { background:var(--accent); }
+.gm-row input,.gm-tools input { width:15px; height:15px; flex:none; accent-color:var(--primary); cursor:pointer; }
+.gm-marker { width:22px; height:28px; flex:none; display:grid; place-items:center; padding:1px; border:0; background:transparent; color:#9aa0a6; }
+.gm-marker svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.5; }
+.gm-marker.gm-marked { color:#f4b400; }
+.gm-marker.gm-marked svg { fill:currentColor; }
+.gm-open.ib-row { flex:1; min-width:0; width:auto; height:40px; padding:0; gap:18px; border:0; border-radius:0; display:flex; align-items:center; background:transparent; color:var(--foreground); font-size:14px; text-align:left; }
+.gm-open.ib-row::before { display:none; }
+.gm-sender { width:180px; flex:none; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.gm-message-count { font-size:12px; font-weight:400; color:var(--muted-foreground); }
+.gm-summary { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.gm-project { padding:2px 5px; margin-right:8px; font-size:11px; border-radius:3px; background:#e9eaed; color:#444746; font-weight:400; }
+.gm-preview { color:var(--muted-foreground); font-weight:400; }
+.gm-date { flex:none; width:76px; text-align:right; font-size:12px; }
+.gm-open.ib-u .gm-sender,.gm-open.ib-u .gm-subject,.gm-open.ib-u .gm-date { font-weight:700; }
+.gm-no-mail { padding:12px 44px 24px; font-size:13px; color:var(--muted-foreground); }
+.gm-footer { display:block; padding:28px 24px; font-size:11px; text-align:center; color:var(--muted-foreground); }
+.gm-error { margin:8px 16px; color:var(--destructive); font-size:13px; }
+.theme-plannotator-gmail .pn-inbox[data-view='thread'] .gm-mail { display:none; }
+.theme-plannotator-gmail .ib-phead { height:48px; padding:0 16px; gap:10px; border-bottom:0; }
+.theme-plannotator-gmail .ib-phsubj { display:none; }
+.theme-plannotator-gmail .ib-pbody { padding:20px 48px 32px; }
+.theme-plannotator-gmail .ib-subject { font-size:22px; font-weight:400; margin-bottom:28px; }
+.theme-plannotator-gmail .ib-body { font-size:14px; line-height:1.65; }
+.theme-plannotator-gmail .ib-message+.ib-message { margin-top:24px; padding-top:20px; border-top:1px solid var(--border); }
+.theme-plannotator-gmail .ib-fline { font-size:12px; }
+.theme-plannotator-gmail .ib-pfoot { padding:16px 48px 24px; border-top:0; }
+.theme-plannotator-gmail .ib-rbox { border-radius:16px; border:1px solid var(--border); background:var(--card); box-shadow:0 1px 3px #0002; }
+.theme-plannotator-gmail .ib-sframe-in { padding:24px; }
+.theme-plannotator-gmail .ib-bpage { border-radius:16px; }
+.theme-plannotator-gmail :focus-visible { outline:2px solid var(--primary); outline-offset:2px; }
+@media(max-width:767px) { .gm-header { padding:0 12px; gap:10px; }.gm-identity { width:auto; }.gm-identity>span,.gm-identity>.ib-ic { display:none; }.gm-search { flex:1; width:auto; }.gm-search kbd { display:none; }.theme-plannotator-gmail .ib-main { margin:0 6px 6px; }.gm-sender { width:100px; }.gm-project,.gm-preview,.gm-important { display:none; }.gm-row { gap:6px; padding-inline:10px; }.gm-marker { width:28px; height:44px; }.gm-open.ib-row { min-height:56px; height:auto; flex-wrap:wrap; gap:0 8px; padding-block:6px; }.gm-summary { flex-basis:calc(100% - 90px); order:3; }.gm-date { margin-left:auto; }.theme-plannotator-gmail .ib-pbody,.theme-plannotator-gmail .ib-pfoot { padding:16px; } }
+
+.theme-plannotator-gmail .pn-inbox[data-stack~='thread'] .ib-sb,.theme-plannotator-gmail .pn-inbox[data-stack~='thread'] .ib-edge-pos { display:none; }
+.theme-plannotator-gmail .ib-sb-panel { top:64px; height:calc(100dvh - 64px); }
+
+.gm-row { position:relative; }
+.gm-row-action { position:absolute; right:12px; top:4px; width:32px; height:32px; border:0; border-radius:50%; background:var(--card); color:var(--muted-foreground); display:none; align-items:center; justify-content:center; }
+.gm-row:hover .gm-row-action,.gm-row:focus-within .gm-row-action { display:flex; }
+
+/* shortcut: Aside recolors authored light interfaces; remove when it honors color-scheme. */
+:root.theme-plannotator-gmail.light .pn-inbox, :root.theme-plannotator-gmail.light .pn-inbox * { --native-dark-bg-color:transparent!important; --native-dark-font-color:var(--foreground)!important; --native-dark-border-color:var(--border)!important; --native-dark-fill-color:currentColor!important; --native-dark-box-shadow:none!important; }
+:root.theme-plannotator-gmail.light :is(.pn-inbox,.gm-header,.ib-shell,.ib-side,.ib-sb,.ib-sb-panel,.ib-sb-inner,.ib-sidescroll,.ib-side-foot) { --native-dark-bg-color:var(--background)!important; }
+:root.theme-plannotator-gmail.light :is(.ib-main,.gm-mail,.gm-mail-body,.gm-tools,.gm-section,.gm-row.ib-u,.ib-pane,.ib-phead,.ib-pbody,.ib-pfoot,.ib-view,.ib-sgroup,.ib-spage,.ib-spg,.ib-rbox) { --native-dark-bg-color:var(--card)!important; }
+:root.theme-plannotator-gmail.light .gm-row { --native-dark-bg-color:var(--muted)!important; }
+:root.theme-plannotator-gmail.light .gm-row.ib-u { --native-dark-bg-color:var(--card)!important; }
+:root.theme-plannotator-gmail.light .gm-search { --native-dark-bg-color:var(--secondary)!important; }
+:root.theme-plannotator-gmail.light .ib-compose-btn { --native-dark-bg-color:#c2e7ff!important; --native-dark-font-color:#001d35!important; }
+:root.theme-plannotator-gmail.light :is(.ib-nav.ib-on,.ib-proj.ib-on,.gm-checked,.gm-unread[aria-pressed='true']) { --native-dark-bg-color:var(--accent)!important; }
+:root.theme-plannotator-gmail.light .gm-project { --native-dark-bg-color:#e9eaed!important; --native-dark-font-color:#444746!important; }
+:root.theme-plannotator-gmail.light :is(.gm-marker.gm-marked,.gm-marker.gm-marked *) { --native-dark-font-color:#f4b400!important; }
+:root.theme-plannotator-gmail.light :is(.gm-marker,.gm-marker *) { --native-dark-font-color:#9aa0a6!important; }
+:root.theme-plannotator-gmail.light .gm-marker.gm-marked, :root.theme-plannotator-gmail.light .gm-marker.gm-marked * { --native-dark-font-color:#f4b400!important; }
+:root.theme-plannotator-gmail.light :is(.gm-no-mail,.gm-preview,.gm-footer,.gm-count,.gm-section-count,.gm-message-count) { --native-dark-font-color:var(--muted-foreground)!important; }
+:root.theme-plannotator-gmail.light .gm-identity>.ib-ic, :root.theme-plannotator-gmail.light .gm-identity>.ib-ic * { --native-dark-font-color:#c5221f!important; }
+:root.theme-plannotator-gmail.light .gm-avatar { --native-dark-bg-color:#7c4dff!important; --native-dark-font-color:#fff!important; }
+:root.theme-plannotator-gmail.light .pn-inbox a { --native-dark-link-color:var(--primary)!important; }
+@media(max-width:767px) { .gm-header>.gm-spacer { display:none; }.gm-search { min-width:0; gap:12px; padding-inline:12px; }.gm-search span { white-space:nowrap; } }

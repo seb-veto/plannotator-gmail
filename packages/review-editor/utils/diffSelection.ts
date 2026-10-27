@@ -1,0 +1,97 @@
+export function getLineNumberFromNode(node: Node | null): number | null {
+  let current: Node | null = node;
+  if (current?.nodeType === Node.TEXT_NODE) current = current.parentNode;
+  while (current) {
+    if (current instanceof HTMLElement) {
+      const line = current.closest('[data-line]')?.getAttribute('data-line');
+      if (line) {
+        const parsed = Number(line);
+        return Number.isFinite(parsed) ? parsed : null;
+      }
+    }
+    current = current.parentNode;
+  }
+  return null;
+}
+
+export function getSideFromNode(node: Node | null): 'additions' | 'deletions' {
+  let current: Node | null = node;
+  if (current?.nodeType === Node.TEXT_NODE) current = current.parentNode;
+  while (current) {
+    if (current instanceof HTMLElement) {
+      // A changed row names its own side (unified view has no per-side column).
+      const lineType = current.getAttribute('data-line-type');
+      if (lineType === 'change-deletion') return 'deletions';
+      if (lineType === 'change-addition') return 'additions';
+      if (current.hasAttribute('data-deletions')) return 'deletions';
+      if (current.hasAttribute('data-additions')) return 'additions';
+    }
+    current = current.parentNode;
+  }
+  return 'additions';
+}
+
+export function getDiffSelection(root: HTMLElement | null): Selection | null {
+  if (!root) return window.getSelection();
+  const containers = root.querySelectorAll('diffs-container');
+  for (const container of containers) {
+    const sr = container.shadowRoot;
+    if (!sr) continue;
+    const sel = (sr as ShadowRoot & { getSelection?: () => Selection | null }).getSelection?.();
+    if (sel && !sel.isCollapsed) return sel;
+  }
+  return window.getSelection();
+}
+
+export interface DiffSelectionSnapshot {
+  start: number;
+  end: number;
+  side: 'deletions' | 'additions';
+  host?: HTMLElement | null;
+}
+
+export function snapshotDiffSelection(
+  root: HTMLElement | null,
+  customSelection?: Selection | null,
+): DiffSelectionSnapshot | null {
+  const selection = customSelection ?? getDiffSelection(root);
+  if (!selection || selection.isCollapsed || !selection.toString().trim()) return null;
+  const anchorLine = getLineNumberFromNode(selection.anchorNode);
+  const focusLine = getLineNumberFromNode(selection.focusNode);
+  if (anchorLine == null || focusLine == null) return null;
+  const side = getSideFromNode(selection.anchorNode);
+  const rootNode = selection.anchorNode?.getRootNode();
+  const host = rootNode instanceof ShadowRoot && rootNode.host instanceof HTMLElement ? rootNode.host : null;
+  return {
+    start: Math.min(anchorLine, focusLine),
+    end: Math.max(anchorLine, focusLine),
+    side,
+    host,
+  };
+}
+
+/**
+ * The range a gutter `+` click comments on (#991). With text selected across
+ * several lines, a click on a line inside that selection comments on the
+ * whole selection; a click elsewhere (another line, the other side) comments
+ * on the clicked line as before.
+ */
+export function rangeForGutterClick<T extends {
+  start: number;
+  end: number;
+  side?: 'deletions' | 'additions';
+  endSide?: 'deletions' | 'additions';
+}>(
+  clicked: T,
+  snapshot: DiffSelectionSnapshot | null,
+): T {
+  if (!snapshot) return clicked;
+  if (clicked.side != null && clicked.side !== snapshot.side) return clicked;
+  if (clicked.endSide != null && clicked.endSide !== snapshot.side) return clicked;
+  const low = Math.min(clicked.start, clicked.end);
+  const high = Math.max(clicked.start, clicked.end);
+  if (low < snapshot.start || high > snapshot.end) return clicked;
+  const widened: T = { ...clicked, start: snapshot.start, end: snapshot.end, side: snapshot.side };
+  if (clicked.endSide != null) widened.endSide = snapshot.side;
+  return widened;
+}

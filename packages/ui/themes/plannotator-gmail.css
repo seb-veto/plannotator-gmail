@@ -1,0 +1,59 @@
+/* Craft Agents' public default palette, adapted to Plannotator's token contract.
+ * Reference: craft-ai-agents/craft-agents-oss, packages/ui/src/styles/tokens.css
+ * Apache-2.0; see THIRD_PARTY_NOTICES.md. Plannotator keeps its own identity. */
+.theme-plannotator-gmail {
+  --background: #1b1c1e;
+  --foreground: #ecedef;
+  --card: #151618;
+  --card-foreground: #ecedef;
+  --popover: #1f2022;
+  --popover-foreground: #ecedef;
+  --primary: #b29fff;
+  --primary-foreground: #19151f;
+  --secondary: #292a2c;
+  --secondary-foreground: #ecedef;
+  --muted: #222325;
+  --muted-foreground: #9e9fa1;
+  --accent: #292a2c;
+  --accent-foreground: #ecedef;
+  --destructive: #fa6863;
+  --destructive-foreground: #151618;
+  --border: #303133;
+  --input: #37383a;
+  --ring: #a18bf3;
+  --success: #5ac576;
+  --success-foreground: #151618;
+  --warning: #f2af48;
+  --warning-foreground: #151618;
+  --font-sans: Arial, sans-serif;
+  --font-mono: 'Geist Mono Variable', 'Geist Mono', 'SF Mono', monospace;
+  --radius: 0.5rem;
+  --code-bg: #111214;
+  --focus-highlight: #b29fff;
+}
+.theme-plannotator-gmail.light {
+  --background: #f6f8fc;
+  --foreground: #1f1f1f;
+  --card: #ffffff;
+  --card-foreground: #1f1f1f;
+  --popover: #ffffff;
+  --popover-foreground: #1a1c1e;
+  --primary: #0b57d0;
+  --primary-foreground: #ffffff;
+  --secondary: #eaf1fb;
+  --secondary-foreground: #1a1c1e;
+  --muted: #f2f6fc;
+  --muted-foreground: #5d5f60;
+  --accent: #d3e3fd;
+  --accent-foreground: #1a1c1e;
+  --destructive: #bc0013;
+  --destructive-foreground: #ffffff;
+  --border: #e0e3e7;
+  --input: #8a8c8d;
+  --ring: #0b57d0;
+  --success: #006f30;
+  --success-foreground: #ffffff;
+  --warning: #865600;
+  --warning-foreground: #ffffff;
+  --code-bg: #f4f5f6;
+}

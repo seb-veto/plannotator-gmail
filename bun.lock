@@ -115,7 +115,7 @@
     },
     "apps/opencode-plugin": {
       "name": "@plannotator/opencode",
-      "version": "0.28.31",
+      "version": "0.28.33",
       "devDependencies": {
         "@opencode-ai/plugin": "1.19.3",
         "@opencode/plugin": "2.0.32",
@@ -134,7 +134,7 @@
     },
     "apps/pi-extension": {
       "name": "@plannotator/pi-extension",
-      "version": "0.28.31",
+      "version": "0.28.33",
       "dependencies": {
         "@joplin/turndown-plugin-gfm": "^1.0.68",
         "@pierre/diffs": "1.5.2",
@@ -219,7 +219,7 @@
       "name": "plannotator-webview",
       "version": "0.16.8",
       "dependencies": {
-        "@agentclientprotocol/sdk": "1.9.0",
+        "@agentclientprotocol/sdk": "2.0.0",
         "@vscode/codicons": "0.0.45",
         "dompurify": "3.4.17",
         "marked": "17.0.6",
@@ -340,7 +340,7 @@
     },
     "packages/server": {
       "name": "@plannotator/server",
-      "version": "0.28.31",
+      "version": "0.28.33",
       "dependencies": {
         "@modelcontextprotocol/server": "2.3.1",
         "@pierre/diffs": "1.5.2",
@@ -459,7 +459,7 @@
     "source-map-js": "1.2.2",
   },
   "packages": {
-    "@agentclientprotocol/sdk": ["@agentclientprotocol/sdk@1.9.0", "", { "peerDependencies": { "zod": "^3.25.0 || ^4.0.0" } }, "sha512-saCOTPYBK1iqWqJFAYHXbg3+zCoFXyZZFoqQAwdTWkbrZZPpAETr80QOnYr2l+dzPwL0jpNhn3eDY8MoEIDbUA=="],
+    "@agentclientprotocol/sdk": ["@agentclientprotocol/sdk@2.0.0", "", { "peerDependencies": { "zod": "^3.25.76 || ^4.0.0" } }, "sha512-Za5gWOPQ44aBOdegDJZ+OjCAPn7POc0cw8BlFJQ1mmUY1OoUWxRi3+QZT4gdZnyEWgKXyfeGRb0Oo1ag9YkQ1w=="],
 
     "@ai-sdk/provider": ["@ai-sdk/provider@3.0.8", "", { "dependencies": { "json-schema": "^0.4.0" } }, "sha512-oGMAgGoQdBXbZqNG0Ze56CHjDZ1IDYOwGYxYjO5KLSlz5HiNQ9udIXsPZ61VWaHGZ5XW/jyjmr6t2xz2jGVwbQ=="],
 

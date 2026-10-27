@@ -43,9 +43,9 @@
     "test:e2e:inbox": "playwright test -c tests/e2e/playwright.config.ts"
   },
   "dependencies": {
-    "@anthropic-ai/claude-agent-sdk": "^0.3.303",
+    "@anthropic-ai/claude-agent-sdk": "^0.3.305",
     "@opencode-ai/sdk": "1.19.3",
-    "@pierre/diffs": "1.5.2",
+    "@pierre/diffs": "1.6.0",
     "diff": "^8.0.4",
     "dockview-react": "^5.2.0",
     "dompurify": "^3.4.17",

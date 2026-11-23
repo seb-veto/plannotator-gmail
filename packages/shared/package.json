@@ -149,11 +149,11 @@
     "./inbox/agent-link": "./inbox/agent-link.ts"
   },
   "dependencies": {
-    "@joplin/turndown-plugin-gfm": "^1.0.68",
+    "@joplin/turndown-plugin-gfm": "^1.0.71",
     "@plannotator/core": "workspace:*",
     "chokidar": "^5.0.0",
     "parse5": "^7.3.0",
-    "turndown": "^7.2.4"
+    "turndown": "^7.2.5"
   },
   "devDependencies": {
     "fast-check": "4.10.2"
